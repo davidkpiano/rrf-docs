@@ -2,5 +2,5 @@
 
 * [Getting Started](README.md)
 * [Guides](guides.md)
-   * Step By Step
+   * [Step By Step](step_by_step.md)
 
