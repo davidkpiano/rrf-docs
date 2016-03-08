@@ -1,8 +1,8 @@
 /* CSS for website */
-.book-summary:not([id="a"]) {
+.book-summary:not(#a) {
   background: #272e35;
 }
 
-li.chapter:not([id="a"]) > a {
+li.chapter:not(#a) > a {
   color: white;
 }
