@@ -184,3 +184,6 @@ dispatch(actions.validateErrors('user.email', {
 //  unavailable: false
 // });
 ```
+
+**Tips**
+- As previously stated, if you aren't using error messages, use `actions.validate(model, validators)` as a cleaner pattern.
