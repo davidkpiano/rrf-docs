@@ -126,8 +126,9 @@ Dispatches a `change` action that filters the array represented by the `model` t
 If no `iteratee` is specified, the identity function is used by default.
 
 **Arguments:**
-- `model`: (String) the array model to be filtered.
-- `iteratee = identity`: (Function) the filter iteratee function that filters the array represented by the model.
+- `model` _(String)_: the array model to be filtered.
+- `iteratee` _(Function)_: the filter iteratee function that filters the array represented by the model.
+  - default: `identity` (`a => a`)
 
 
 ## `actions.map(model, iteratee)`
