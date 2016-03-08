@@ -5,8 +5,9 @@
 
 li.chapter:not(#a) > span {
   text-transform: uppercase;
-  font-size: 0.8rem;
-  color: rgba(255, 255, 255, 0.6);
+  font-size: 80%;
+  font-weight: bold;
+  color: hsla(0,0%,100%,.4);
 }
 
 li.chapter:not(#a) > a {
