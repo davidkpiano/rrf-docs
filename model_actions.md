@@ -125,24 +125,25 @@ Dispatches a `change` action that filters the array represented by the `model` t
 
 If no `iteratee` is specified, the identity function is used by default.
 
-**Arguments:**
+**Arguments**
 - `model` _(String)_: the array model to be filtered.
 - `iteratee` _(Function)_: the filter iteratee function that filters the array represented by the model.
   - default: `identity` (`a => a`)
 
 
 ## `actions.map(model, iteratee)`
-Dispatches a `change` action that maps the array represented by the `model` through the `iteratee` function.
+Dispatches an `actions.change(...)` action that maps the array represented by the `model` through the `iteratee` function.
 
 If no `iteratee` is specified, the identity function is used by default.
 
-**Arguments:**
-- `model`: (String) the array model to be mapped.
-- `iteratee = identity`: (Function) the map iteratee function that maps the array represented by the model.
+**Arguments**
+- `model` _(String)_: the array model to be mapped.
+- `iteratee` _(Function)_: the map iteratee function that maps the array represented by the model.
 
 
 ## `actions.remove(model, index)`
-Dispatches a `change` action that removes the item at the specified `index` of the array represented by the `model`.
-**Arguments:**
-- `model`: (String) the array model to be updated.
-- `index`: (Number) the index that should be removed from the array.
+Dispatches an `actions.change(...)` action that removes the item at the specified `index` of the array represented by the `model`.
+
+**Arguments**
+- `model` _(String)_: the array model to be updated.
+- `index` _(Number)_: the index that should be removed from the array.
