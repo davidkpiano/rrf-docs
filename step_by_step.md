@@ -1,4 +1,4 @@
-# Step by Step
+# Quick Start
 
 This step-by-step guide assumes that you already have a project set up with:
 
