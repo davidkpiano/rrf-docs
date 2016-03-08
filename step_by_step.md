@@ -55,19 +55,19 @@ ReactDOM.render(<App />, document.getElementById('app'));
 
 Here, you will add the model reducers and form reducers you want to use. As a reminder:
 
-- `createModelReducer(model, initialState)` will create a model reducer, and
-- `createFormReducer(model)` will create a form reducer.
+- `modelReducer(model, initialState)` will create a model reducer, and
+- `formReducer(model)` will create a form reducer.
 
-A form reducer is _always_ optional, and if you are not concerned with field states such as `focus`, `blur`, `pristine`, `valid`, etc., you can omit it (especially for performance purposes).
+Form reducers are _always_ optional. If you are not concerned with field states such as `focus`, `blur`, `pristine`, `valid`, etc., you can omit it (especially for performance purposes).
 
-**Important:** Make sure that `model` matches the **exact path** to the state. That way, the `<Field>` component will know where to look when connecting the proper state slice with the control components.
+**Important:** Make sure that `model` matches the **exact path** to the state. This will let the various model and form actions know where to retrieve the model value from the store.
 
 ```js
 // ./store.js
 import { createStore, combineReducers } from 'redux';
 import {
-  createModelReducer,
-  createFormReducer
+  modelReducer,
+  formReducer
 } from 'react-redux-form';
 
 const initialUserState = {
@@ -76,8 +76,8 @@ const initialUserState = {
 };
 
 const store = createStore(combineReducers({
-  user: createModelReducer('user', initialUserState),
-  userForm: createFormReducer('user')
+  user: modelReducer('user', initialUserState),
+  userForm: formReducer('user', initialUserState)
 });
 
 export default store;
@@ -87,7 +87,7 @@ export default store;
 
 ```js
 import React from 'react';
-import { Field, actions } from 'react-redux-form';
+import { Field, Form, actions } from 'react-redux-form';
 
 class UserForm extends React.Component {
   handleSubmit() {
@@ -104,7 +104,7 @@ class UserForm extends React.Component {
     let { user } = this.props;
 
     return (
-      <form onSubmit={() => this.handleSubmit()}>
+      <Form onSubmit={() => this.handleSubmit()}>
         <Field model="user.firstName">
           <label>First name:</label>
           <input type="text" />
@@ -118,7 +118,7 @@ class UserForm extends React.Component {
         <button type="submit">
           Finish registration, { user.firstName } { user.lastName }!
         </button>
-      </form>
+      </Form>
     );
   }
 }
