@@ -68,4 +68,37 @@ Returns an action that, when handled by a `formReducer`, changes the `.pending` 
 **Tips**
 - This action is useful when asynchronously validating or submitting a model. It represents the state between the initial and final state of a field model's validation/submission.
 
+## `actions.setTouched(model)`
+Returns an action that, when handled by a `formReducer`, changes the `.touched` state of the field model in the form to `true`. It simultaneously sets the `.untouched` state to `false`.
 
+The "touched" state indicates that this model has been interacted with.
+
+**Arguments**
+- `model`: (String) the model indicated as touched
+
+**Tips**
+- Setting a `model` to touched also sets the entire form to touched.
+- Touched also sets the `model` to blurred.
+
+## `actions.setUntouched(model)`
+Returns an action that, when handled by a `formReducer`, changes the `.untouched` state of the field model in the form to `true`. It simultaneously sets the `.touched` state to `true`.
+
+The "untouched" state indicates that this model has not been interacted with yet.
+
+**Arguments**
+- `model`: (String) the model indicated as untouched
+
+**Tips**
+- This action is useful for conditionally displaying error messages based on whether the field has been touched.
+
+## `actions.setSubmitted(model, submitted)`
+Returns an action that, when handled by a `formReducer`, changes the `.submitted` state of the field model in the form to `submitted` (`true` or `false`). It simultaneously sets the `.pending` state to the inverse of `submitted`.
+
+The "submitted" state indicates that this model has been "sent off," or an action has been completed for the model.
+
+**Arguments**
+- `model`: (String) the model indicated as touched
+
+**Tips**
+- Setting a `model` to touched also sets the entire form to touched.
+- Touched also sets the `model` to blurred.
