@@ -101,4 +101,4 @@ dispatch(actions.asyncSetValidity('user.email', isEmailAvailable));
 ```
 
 **Tips**
-- This action is useful for general-purpose asynchronous validation.  If you are using _promises_, using `actions.submit(model, promise)` is a cleaner pattern.
+- This action is useful for general-purpose asynchronous validation using callbacks.  If you are using _promises_, using `actions.submit(model, promise)` is a cleaner pattern.
