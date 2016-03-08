@@ -26,7 +26,7 @@ Now, when you send a `change(...)` action that intends to modify the user, such 
 
 The `createModelReducer(model, initialState)` function takes two arguments: the **model** and the optional **initialState**. It's highly recommended that you provide an initial state to your model reducer, though Redux Simple Form will create missing keys (shallow or deep) regardless.
 
-### Model Reducers in Stores
+## Model Reducers in Stores
 
 The _only requirement_\* in Redux Simple Form is that your model reducer has the **same model as the key of the reducer in the store.** This is so that the `<Field model="...">` component knows where to look for the latest model value. Here is how you would set up a model reducer in your app's store:
 
@@ -46,7 +46,7 @@ export default store;
 
 \* If you are not using the `<Field />` component, you may forego this requirement.
 
-### Updating Models
+## Updating Models
 
 The model reducer uses the `action.model` path to know where which part of the state should be updated.
 
@@ -67,9 +67,66 @@ const state = {
 
 A value from an object key can be retrieved with the path `'user.firstName'` and a value inside an array can be retrieved with `'user.phones[1]'`, and with even more granularity, `'user.phones[1].number'`.
 
-### Custom Model Reducers
+## Using Existing Reducers
 
-Using `createModelReducer()` is *not required*, and you can implement your own functionality to respond to model changes:
+The `modeled()` reducer enhancer gives you the ability to **use your existing reducers** and update them with model changes in React Redux Form. Here's how it works: say you have an existing reducer:
+
+```js
+const initialState = {
+  firstName: '',
+  lastName: '',
+  fullName: ''
+};
+
+function myReducer(state = initialState, action) {
+  switch (actions.type) {
+    case 'GET_FULL_NAME':
+      return {
+        ...state,
+        fullName: `${state.firstName} ${state.lastName}`
+      };
+    default:
+      return state;
+  }
+}
+```
+
+If you want your existing reducer to update to actions such as `actions.change('my.firstName', 'David')`, decorate (wrap) it with the `modeled(reducer, model)` function:
+
+```js
+import { modeled } from 'react-redux-form';
+
+const initialState = /* ... */
+
+function myReducer(...) {
+  /* ... */
+}
+
+// Decorated modeled reducer
+const myModeledReducer = modeled(myReducer, 'my');
+
+export default myModeledReducer;
+```
+
+Now, you will be able to use your existing reducer as-is. The reducer will return the updated state based on model actions such as `actions.change()` and `actions.reset()`, and compose it with the existing reducer:
+
+```js
+import { actions } from 'react-redux-form';
+
+let state = { firstName: 'Daniel', lastName: 'Walker' };
+
+let newState = myModeledReducer(state, actions.change('my.firstName', 'Johnnie'));
+// => { firstName: 'Johnnie', lastName: 'Walker' }
+
+myModeledReducer(newState, { type: 'GET_FULL_NAME' });
+// => { firstName: 'Johnnie', lastName: 'Walker', fullName: 'Johnnie Walker' }
+```
+
+Want to know more about reducer enhancers (a.k.a. higher order reducers)? Check out [another example](http://rackt.org/redux/docs/recipes/ImplementingUndoHistory.html) of a higher-order reducer in the Redux ecosystem.
+
+## Custom Model Reducers
+
+Using `modelReducer()` or `modeled()` is *not required*, and you can implement your own functionality to respond to model changes:
 
 ```js
 import { actionTypes } from 'react-redux-form';
@@ -88,32 +145,4 @@ const userReducer = (state = {}, action) => {
 }
 ```
 
-However, `createModelReducer()` is _really convenient_, as it uses [lodash](http://lodash.com/docs) and [seamless-immutable](http://github.com/rfeldman/seamless-immutable) to efficiently update the model given a model string such as `"foo.bar[2].baz"`. The new state derived from the model reducer can be used as an intermediate state, which can then be used to make custom state updates:
-
-```js
-import { createModelReducer } from 'react-redux-form';
-
-let initialState = {
-  firstName: '',
-  lastName: '',
-  fullName: ''
-};
-
-const modelReducer = createModelReducer('user', initialState);
-
-const fullName = (state) => {
-  return {
-    ...state,
-    fullName: [state.firstName, state.lastName].join(' ')
-  };
-}
-
-const userReducer = (state, action) => {
-  let model = modelReducer(state, action);
-  let newState = fullName(model);
-
-  return newState;
-}
-
-export default userReducer;
-```
+However, `createModelReducer()` is _really convenient_, as it uses [icepick](https://github.com/aearly/icepick) to efficiently update the model given a model string such as `"foo.bar[2].baz"`.
