@@ -72,3 +72,33 @@ dispatch(actions.validate('user.email', {
 //  available: true
 // });
 ```
+
+## `actions.asyncSetValidity(model, asyncValidator)`
+Returns an action thunk that calculates the `validity` of the `model` based on the async function `asyncValidator`. That function dispatches `actions.setValidity(model, validity)` by calling `done(validity)`.
+
+**Arguments**
+- `model` _(String)_: the model whose validity will asynchronously be set
+- `asyncValidator(value, done)` _(Function)_: a function that is given two arguments:
+  - `value` - the value of the `model`
+  - `done` - the callback where the calculated `validity` is passed in as the argument.
+
+**Example**
+```js
+import { actions } from 'react-redux-form';
+
+// async function
+function isEmailAvailable(email, done) {
+  fetch('...', { body: email })
+    .then((response) => {
+      done(response); // true or false
+    });
+}
+
+// somewhere with dispatch():
+dispatch(actions.asyncSetValidity('user.email', isEmailAvailable));
+// => 1. will set .pending to true, then eventually...
+// => 2. will set .validity to response and .pending to false
+```
+
+**Tips**
+- This action is useful for general-purpose asynchronous validation setting.  If you are using _promises_, using `actions.submit(model, promise)` is a cleaner pattern.
