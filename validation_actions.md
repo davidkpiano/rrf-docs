@@ -152,3 +152,35 @@ dispatch(actions.setErrors('user.password', {
 **Tips**
 - If you aren't hard-coding error messages, use `actions.setValidity(model, validity)` instead. It's a cleaner pattern.
 - You can set `errors` to a boolean, object, array, string, etc. Remember: truthy values indicate errors.
+
+## `actions.validateErrors(model, errorValidators)`
+Returns an action thunk that calculates the `errors` of the `model` based on the function/object `errorValidators`. Then, the thunk dispatches `actions.setErrors(model, errors)`.
+
+An **error validator** is a function that returns `true` or a truthy value (such as a string) if invalid, and `false` if valid.
+
+**Arguments**
+- `model` _(String)_: the model whose validity will be calculated
+- `errorValidators` _(Function | Object)_: an error validator _or_ an object whose keys are error keys (such as `'incorrect'`) and values are error validators.
+
+**Example**
+```js
+import { actions } from 'react-redux-form';
+import { isEmail } from 'validator';
+
+// assume user.email = "foo@gmail"
+
+// somewhere with dispatch():
+dispatch(actions.validateErrors('user.email', (val) => {
+  return !isEmail(val) && 'Not an email!'
+}));
+// will dispatch actions.setErrors('user.email', 'Not an email!')
+
+dispatch(actions.validateErrors('user.email', {
+  notAnEmail: (val) => !isEmail(val) && 'Not an email!',
+  unavailable: (email) => email == 'foo@gmail.com' && 'Use a different email'
+});
+// will dispatch actions.setErrors('user.email', {
+//  notAnEmail: 'Not an email!',
+//  unavailable: false
+// });
+```
