@@ -13,8 +13,6 @@ It simultaneously sets the `.errors` on the field model to the inverse of the `v
 ```js
 import { actions } from 'react-redux-form';
 
-let val = 'testing123';
-
 // somewhere with dispatch():
 dispatch(actions.setValidity('user.email', true));
 
@@ -24,6 +22,8 @@ dispatch(actions.setValidity('user.email', true));
 //   validity: true,
 //   errors: false
 // }
+
+let val = 'testing123';
 
 dispatch(actions.setValidity('user.password', {
   required: val && val.length,
@@ -102,3 +102,53 @@ dispatch(actions.asyncSetValidity('user.email', isEmailAvailable));
 
 **Tips**
 - This action is useful for general-purpose asynchronous validation using callbacks.  If you are using _promises_, using `actions.submit(model, promise)` is a cleaner pattern.
+
+## `actions.setErrors(model, errors)`
+Returns an action that, when handled by a `formReducer`, changes the `.valid` state of the field model in the form to `true` or `false`, based on the `errors` (see below). It will also set the `.errors` state of the field model to the `errors`.
+
+It simultaneously sets the `.validity` on the field model to the inverse of the `errors`.
+
+**Arguments**
+- `model` _(String)_: the model whose validity will be set
+- `errors` _(Boolean | Object | String)_: a truthy/falsey value or an object indicating which error keys of the field model are invalid.
+
+**Example**
+```js
+import { actions } from 'react-redux-form';
+
+// somewhere with dispatch():
+dispatch(actions.setErrors('user.email', true));
+
+// email field:
+// {
+//   valid: false,
+//   validity: false,
+//   errors: true
+// }
+
+dispatch(actions.setErrors('user.email', 'So many errors!'));
+
+// email field:
+// {
+//   valid: false,
+//   validity: false,
+//   errors: 'So many errors!'
+// }
+
+let val = 'testing123';
+
+dispatch(actions.setErrors('user.password', {
+  empty: !(val && val.length) && 'Password is required!',
+  incorrect: val !== 'hunter2' && 'The password is wrong'
+}));
+
+// password field:
+// {
+//   valid: false,
+//   errors: { empty: false, incorrect: 'The password is wrong' }
+// }
+```
+
+**Tips**
+- If you aren't hard-coding error messages, use `actions.setValidity(model, validity)` instead. It's a cleaner pattern.
+- You can set `errors` to a boolean, object, array, string, etc. Remember: truthy values indicate errors.
