@@ -121,7 +121,7 @@ Dispatches a `change` action that sets the `model` to true if it is falsey, and 
 
 
 ## `actions.filter(model, iteratee)`
-Dispatches a `change` action that filters the array represented by the `model` through the `iteratee` function. This action works similar to [lodash's `_.filter` method](http://lodash.com/docs#filter).
+Dispatches a `change` action that filters the array represented by the `model` through the `iteratee` function.
 
 If no `iteratee` is specified, the identity function is used by default.
 
