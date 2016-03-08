@@ -81,3 +81,46 @@ The handler function called when the form is submitted. This works almost exactl
 - The submit event's default action is prevented by default, using `event.preventDefault()`.
 - The `onSubmit` handler _will not execute_ if the form is invalid.
 - The `onSubmit` handler receives the form model data, not the event.
+
+**Example**
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import { Form, Field, actions } from 'react-redux-form';
+
+class MyForm extends React.Component {
+  handleSubmit(user) {
+    const { dispatch } = this.props;
+    let userPromise = fetch('...', {
+      method: 'post',
+      body: user
+    })
+    .then((res) => res.json())
+    .then((res) => {
+      // ...
+    });
+    
+    dispatch(actions.submit('user', userPromise));
+  }
+  
+  render() {
+    return (
+      <Form model="user"
+        validators={{...}}
+        onSubmit={ (user) => this.handleSubmit(user) }>
+        <Field model="user.email">
+          <input type="email" />
+        </Field>
+      </Form>
+    );
+  }
+}
+
+export default connect(s => s)(MyForm);
+```
+- Here, `handleSubmit()` will _not_ be called if any of the `validators` (or `errors`, if specified) are not valid.
+- `handleSubmit(user)` receives the `user` model value, since `model="user"` on the `<Form>` component.
+
+**Tips**
+- You can do anything in `onSubmit`; including firing off custom actions or handling (async) validation yourself.
+  
