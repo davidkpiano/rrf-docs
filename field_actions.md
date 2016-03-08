@@ -1,11 +1,14 @@
 # Field Actions
 
+All model and field actions can be imported via `import { actions } from 'react-redux-form'`.
+
 ## `actions.focus(model)`
-Returns an action object that, when handled by a `formReducer`, changes the `focus` state of the field model in the form to `true`, as well as the corresponding `blur` state to `false`.
+Returns an action object that, when handled by a `formReducer`, changes the `.focus` state of the field model in the form to `true`, as well as the corresponding `.blur` state to `false`.
+
 The "focus" state indicates that the field model is the currently focused field in the form.
 
 **Arguments:**
-- `model`: (String) the model indicated as focused
+- `model` _(String)_: the model indicated as focused
 
 ```js
 import {
