@@ -7,4 +7,5 @@
    * [Form Reducers](form_reducers.md)
    * [React Native & Custom Components](react_native_&_custom_components.md)
    * [Validation](validation.md)
+* API Reference
 
