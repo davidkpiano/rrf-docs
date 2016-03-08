@@ -59,11 +59,13 @@ The "dirty" state indicates that the model value has been changed.
 **Tips**
 - Whenever a field is set to dirty, the entire form is set to dirty.
 
-## `actions.setPending(model)`
+## `actions.setPending(model, [pending])`
 Returns an action that, when handled by a `formReducer`, changes the `.pending` state of the field model in the form to `true`. It simultaneously sets the `.submitted` state to `false`.
 
 **Arguments**
-- `model`: (String) the model indicated as pending
+- `model` _(String)_: the model indicated as pending
+- `pending` _(Boolean)_: whether the model is pending (`true`) or not (`false`).
+  - default: `true`
 
 **Tips**
 - This action is useful when asynchronously validating or submitting a model. It represents the state between the initial and final state of a field model's validation/submission.
@@ -91,7 +93,7 @@ The "untouched" state indicates that this model has not been interacted with yet
 **Tips**
 - This action is useful for conditionally displaying error messages based on whether the field has been touched.
 
-## `actions.setSubmitted(model, submitted)`
+## `actions.setSubmitted(model, [submitted])`
 Returns an action that, when handled by a `formReducer`, changes the `.submitted` state of the field model in the form to `submitted` (`true` or `false`). It simultaneously sets the `.pending` state to the inverse of `submitted`.
 
 The "submitted" state indicates that this model has been "sent off," or an action has been completed for the model.
@@ -99,6 +101,7 @@ The "submitted" state indicates that this model has been "sent off," or an actio
 **Arguments**
 - `model` _(String)_: the model indicated as submitted
 - `submitted` _(Boolean)_: whether the model has been submitted (`true`) or not (`false`).
+  - default: `true`
 
 **Example**
 ```js
