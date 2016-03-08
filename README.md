@@ -5,6 +5,8 @@
 
 React Redux Form is **a collection of action creators and reducer creators** that makes building complex and custom forms with React and Redux simple.
 
+**If you know React and Redux, you know React-Redux-Form.**
+
 It also provides the helpful `<Field model="..." />` component for mapping controls to form and model changes quickly.
 
 Instead of answering "How would I do this with this library?", React Redux Form answers "How would I do this in Redux?", and provides a thin layer to help abstract the pain points of creating complex, dynamic forms with Redux and React.
@@ -19,7 +21,7 @@ import { Field } from 'react-redux-form';
 </Field>
 ```
 
-Heavily inspired by Angular's forms and controls, Redux Simple Form:
+React Redux Form:
 
 - handles model value changes for _any_ object/array
 - provides utility actions for manipulating state
@@ -43,12 +45,13 @@ Heavily inspired by Angular's forms and controls, Redux Simple Form:
 import React from 'react';
 import { combineReducers, createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { createModelReducer } from 'react-redux-form';
+import { modelReducer, formReducer } from 'react-redux-form';
 
 import LoginForm from './forms/login-form';
 
 const store = createStore(combineReducers({
-  user: createModelReducer('user')
+  user: modelReducer('user'),
+  userForm: formReducer('user')
 }));
 
 export default class App extends React.Component {
