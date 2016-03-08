@@ -1,6 +1,6 @@
 # Validation
 
-Validation occurs as the result of dispatching validation actions, such as `actions.setValidity(model, validity)`. That action updates the form validity and error state of your model, and allows you to:
+Validation occurs as the result of dispatching validation actions, such as `actions.setValidity(model, validity)` or `actions.setErrors(model, errors)`. That action updates the form validity and error state of your model, and allows you to:
 
 - validate any part of the model state (however deep),
 - validate any key on that model (such as `{ required: true, length: false }`)
@@ -50,33 +50,33 @@ dispatch(actions.validate('user.email', {
 Here's what happens when you set the validity of a model, via `dispatch(actions.setValidity(model, validity))`:
 
 - The `.errors` property of the model field is set:
-  - if `validity` is boolean, `.errors = !validity`. If valid, `.errors = false`, and vice-versa.
-  - if `validity` is an object, `.errors` is set to the opposite of each validation key (example below)
+  - if `validity` is boolean, `.errors = !validity`. If valid, `.errors = false`, and vice-versa
+  - if `validity` is an object, `.errors` is set to the opposite of each validation key (see example below)
 - The `.valid` property of the model field is set:
   - `.valid = true` if the validity is truthy or if each validation key value is truthy
   - `.valid = false` if the validity is falsey or if any validation key is falsey
 - The `.valid` property of the entire form is set:
-  - `.valid = true` if every field in the form so far is valid
+  - `.valid = true` if every field in the form is valid
   - `.valid = false` if any field in the form is invalid
 
 Here's an example:
 
 ```js
-import { actions, getField } from 'react-redux-form';
+import { actions } from 'react-redux-form';
 
 // wherever validation occurs...
 const { userForm, dispatch } = this.props;
 
 dispatch(actions.setValidity('user.email', {
   required: true,
-  valid: false
+  isEmail: false
 }); // user entered email but email is invalid
 
-getField(userForm, 'email').valid;
+userForm.fields.email.valid;
 // => false
 
-getField(userForm, 'email').errors;
-// => { required: false, valid: true }
+userForm.fields.email.errors;
+// => { required: false, isEmail: true }
 
 userForm.valid;
 // => false
@@ -84,7 +84,7 @@ userForm.valid;
 
 ## Async Validity
 
-There are multiple ways you can handle setting validity asynchronously, in that as long as `setValidity()` is dispatched, the validity will be updated. However, it's generally a good idea to dispatch `setPending(model, pending)` to indicate that the model is currently being asynchronously validated.
+There are multiple ways you can handle setting validity asynchronously. As long as a validation action such as `setValidity()` or `setErrors()` is dispatched, the validity will be updated. It's generally a good idea to dispatch `setPending(model, pending)` to indicate that the model is currently being validated.
 
 Here's a solution using an action thunk creator (with `redux-thunk`):
 
@@ -123,6 +123,18 @@ dispatch(actions.setAsyncValidity('user.username', (value, done) => {
 }));
 ```
 
+If you are working with **promises**, the `submit(model, promise)` action will automatically set the `.errors` of the `model` field if the promise is rejected:
+
+```js
+import { actions } from 'react-redux-form';
+
+// your custom promise
+import checkUsernamePromise from '../path/to/promise';
+
+// wherever dispatch() is available...
+dispatch(actions.submit('user', checkUsernamePromise));
+```
+
 ## Validation with `<Field>` component
 
 The `<Field>` component accepts a few validation-specific props:
@@ -134,9 +146,9 @@ The `<Field>` component accepts a few validation-specific props:
   - **validation key** (string) and
   - **validator** (function) - a function that takes in the model `value` and the `done` callback, similar to `asyncSetValidity(value, done)`
 - `validateOn` and `asyncValidateOn` - event to indicate when to validate:
-  - `"change"` (default)
+  - `"change"` (default for `validators`)
+  - `"blur"` (default for `asyncValidators`)
   - `"focus"`
-  - `"blur"`
 
 Here's an example with the above email and username fields:
 
@@ -148,7 +160,7 @@ import validator from 'validator';
 <Field model="user.email"
   validators={{
     required: (val) => val && val.length,
-    valid: validator.isEmail
+    isEmail: validator.isEmail
   }}
   validateOn="blur">
   <input type="email" />
@@ -165,4 +177,62 @@ import validator from 'validator';
   asyncValidateOn="blur">
   <input type="text" />
 </Field>
+```
+
+## Custom Error Messages
+
+Similar to how the `validators` prop and `setValidity()` action works, you can use the `errors` prop and `setErrors()` action to indicate errors. Keep in mind, these should express the _inverse_ validity state of the model. This means that anything _truthy_ indicates an error.
+
+**Disclaimer:** I do _not_ recommend hard-coding error messages in your validators. Messages are view concerns, and a simple boolean `true` or `false` is more than enough to indicate the validity of a model. When in doubt, use `validators` and/or `setValidity`.
+
+Here's how the `setErrors()` action works:
+
+```js
+import { actions } from 'react-redux-form';
+import validator from 'validator';
+
+// wherever dispatch() is available:
+dispatch(actions.setErrors('user.email', {
+  invalid: (val) => !validator.isEmail(val) && 'Not a valid email',
+  length: (val) => val < 8 && 'Email is too short'
+}));
+```
+
+If a form reducer exists for `'user'`, this will set various properties of the `userForm.fields.email` state:
+
+```js
+// Assuming a long but invalid email:
+
+userForm.fields.email.valid;
+// => false
+
+userForm.fields.email.errors;
+// => { invalid: 'Not a valid email', length: false }
+
+userForm.fields.email.validity;
+// => { invalid: false, length: true }
+```
+
+Error validators can be defined in the `errors` prop of both the `<Form>` and `<Field>` component, as well:
+
+```js
+import { Field } from 'react-redux-form';
+import validator from 'validator';
+
+// inside a render() method, assuming a userForm:
+let { userForm: { fields } } = this.props;
+
+return (
+  <Field model="user.email"
+    errors={{
+      invalid: (val) => !validator.isEmail(val) && 'Not a valid email',
+      length: (val) => val < 8 && 'Email is too short' 
+    }}
+    validateOn="blur">
+    <input type="email" />
+    { !fields.email.valid &&
+      <strong>{ fields.email.errors.invalid }</strong>
+    }
+  </Field>
+);
 ```
