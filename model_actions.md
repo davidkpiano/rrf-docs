@@ -132,7 +132,7 @@ If no `iteratee` is specified, the identity function is used by default.
 
 
 ## `actions.map(model, iteratee)`
-Dispatches a `change` action that maps the array represented by the `model` through the `iteratee` function. This action works similar to [lodash's `_.map` method](http://lodash.com/docs#map).
+Dispatches a `change` action that maps the array represented by the `model` through the `iteratee` function.
 
 If no `iteratee` is specified, the identity function is used by default.
 
