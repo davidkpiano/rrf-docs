@@ -86,7 +86,7 @@ Returns an action that, when handled by a `formReducer`, changes the `.untouched
 The "untouched" state indicates that this model has not been interacted with yet.
 
 **Arguments**
-- `model`: (String) the model indicated as untouched
+- `model` _(String)_: the model indicated as untouched
 
 **Tips**
 - This action is useful for conditionally displaying error messages based on whether the field has been touched.
@@ -97,8 +97,55 @@ Returns an action that, when handled by a `formReducer`, changes the `.submitted
 The "submitted" state indicates that this model has been "sent off," or an action has been completed for the model.
 
 **Arguments**
-- `model`: (String) the model indicated as touched
+- `model` _(String)_: the model indicated as submitted
+- `submitted` _(Boolean)_: whether the model has been submitted (`true`) or not (`false`).
+
+**Example**
+```js
+import { actions } from 'react-redux-form';
+
+// action thunk creator
+export default function submitUser(data) {
+  return (dispatch) => {
+    dispatch(actions.setPending('user', true));
+    
+    fetch('...', { body: data })
+      .then((response) => {
+        // handle the response, then...
+        dispatch(actions.setSubmitted('user', true));
+      });
+  }
+}
+```
 
 **Tips**
-- Setting a `model` to touched also sets the entire form to touched.
-- Touched also sets the `model` to blurred.
+- Use the `setPending()` and `setSubmitted()` actions together to update the state of the field model during some async action.
+
+## `actions.setInitial(model)`
+Returns an action that, when handled by a `formReducer`, changes the state of the field model in the form to its initial state.
+
+Here is the default initial field state:
+
+```js
+const initialFieldState = {
+  blur: true,
+  dirty: false,
+  focus: false,
+  pending: false,
+  pristine: true,
+  submitted: false,
+  touched: false,
+  untouched: true,
+  valid: true,
+  validating: false,
+  viewValue: null,
+  validity: {},
+  errors: {},
+};
+```
+
+**Arguments**
+- `model` _(String)_: the model to be reset to its initial state
+
+**Tips**
+- This action will reset the field state, but will _not_ reset the `model` value in the model reducer. To reset both the field and model, use `actions.reset(model)`.
