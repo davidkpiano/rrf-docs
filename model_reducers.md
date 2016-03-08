@@ -12,43 +12,41 @@ let initialUser = {
 You can create a model reducer that responds only to changes to models that modify the user like this:
 
 ```js
-import { createModelReducer } from 'react-redux-form';
+import { modelReducer } from 'react-redux-form';
 
 let initialUser = {
   firstName: '',
   lastName: ''
 };
 
-const userReducer = createModelReducer('user', initialUser);
+const userReducer = modelReducer('user', initialUser);
 ```
 
-Now, when you send a `change(...)` action that intends to modify the user, such as `change('user.firstName', 'John')`, the reducer will update the model accordingly.
+Now, when you send an `actions.change(...)` action that intends to modify the user, such as `actions.change('user.firstName', 'John')`, the reducer will update the model accordingly.
 
-The `createModelReducer(model, initialState)` function takes two arguments: the **model** and the optional **initialState**. It's highly recommended that you provide an initial state to your model reducer, though Redux Simple Form will create missing keys (shallow or deep) regardless.
+The `modelReducer(model, initialState)` function takes two arguments: the **model** and the optional **initialState**. It's highly recommended that you provide an initial state to your model reducer. Regardless, the model reducer will create new keys if they don't exist.
 
 ## Model Reducers in Stores
 
-The _only requirement_\* in Redux Simple Form is that your model reducer has the **same model as the key of the reducer in the store.** This is so that the `<Field model="...">` component knows where to look for the latest model value. Here is how you would set up a model reducer in your app's store:
+The _only requirement_\* is that your model reducer has the **same model as the key of the reducer in the store object.** This is so that the model and field actions know where to get the latest model value. Here is how you would set up a model reducer in your app's store:
 
 ```js
 // store.js
 import { combineReducers, createStore } from 'redux';
-import { createModelReducer } from 'redux-simple-router';
+import { modelReducer } from 'redux-simple-router';
 
 const store = createStore(combineReducers({
-  user: createModelReducer('user'),
-  items: createModelReducer('items'),
+  user: modelReducer('user'),
+  items: modelReducer('items'),
   // etc.
 }));
 
 export default store;
 ```
 
-\* If you are not using the `<Field />` component, you may forego this requirement.
-
 ## Updating Models
 
-The model reducer uses the `action.model` path to know where which part of the state should be updated.
+The model reducer uses the `model` path to know where which part of the state should be updated.
 
 For example, given this state:
 
@@ -65,7 +63,16 @@ const state = {
 }
 ```
 
-A value from an object key can be retrieved with the path `'user.firstName'` and a value inside an array can be retrieved with `'user.phones[1]'`, and with even more granularity, `'user.phones[1].number'`.
+A value from this object can be retrieved with the path `'user.firstName'` and a value inside an array can be retrieved with `'user.phones[1]'`. You can retrieve deep values as well, e.g. `'user.phones[1].number'`.
+
+For example, to update the second phone number's type, you can `dispatch` a change to its model path:
+
+```js
+import { actions } from 'react-redux-form';
+
+// somewhere connect()ed...
+dispatch(actions.change('user.phones[1].type', 'mobile'))
+```
 
 ## Using Existing Reducers
 
