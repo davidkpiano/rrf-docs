@@ -74,3 +74,10 @@ The possible values are:
 **Tips**
 - Keep in mind, validation will always run initially, when the form is loaded.
 - If you want better performance, you can use `validateOn="submit"`, depending on your use-case.
+
+## `onSubmit={...}`
+The handler function called when the form is submitted. This works almost exactly like a normal `<form onSubmit={...}>` handler, with a few differences:
+
+- The submit event's default action is prevented by default, using `event.preventDefault()`.
+- The `onSubmit` handler _will not execute_ if the form is invalid.
+- The `onSubmit` handler receives the form model data, not the event.
