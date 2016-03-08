@@ -11,8 +11,11 @@ It simultaneously sets the `.errors` on the field model to the inverse of the `v
 
 **Example**
 ```js
+import { actions } from 'react-redux-form';
+
 let val = 'testing123';
 
+// somewhere with dispatch():
 dispatch(actions.setValidity('user.email', true));
 
 // email field:
@@ -40,3 +43,32 @@ dispatch(actions.setValidity('user.password', {
 - Since arrays are objects, the `validity` argument _can_ be an array. Only do this if your use case requires it.
 
 
+## `actions.validate(model, validators)`
+Returns an action thunk that calculates the `validity` of the `model` based on the function/object `validators`. Then, the thunk dispatches `actions.setValidity(model, validity)`.
+
+A **validator** is a function that returns `true` if valid, and `false` if invalid.
+
+**Arguments**
+- `model` _(String)_: the model whose validity will be calculated
+- `validators` _(Function | Object)_: a validator function _or_ an object whose keys are validation keys (such as `'required'`) and values are validators.
+
+**Example**
+```js
+import { actions } from 'react-redux-form';
+import { isEmail } from 'validator';
+
+// assume user.email = "foo@gmail"
+
+// somewhere with dispatch():
+dispatch(actions.validate('user.email', isEmail));
+// will dispatch actions.setValidity('user.email', false)
+
+dispatch(actions.validate('user.email', {
+  isEmail,
+  available: (email) => email !== 'foo@gmail.com'
+});
+// will dispatch actions.setValidity('user.email', {
+//  isEmail: false,
+//  available: true
+// });
+```
