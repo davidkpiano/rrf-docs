@@ -32,7 +32,7 @@ userReducer(initialState, actions.change('user.name', 'Billy'));
 - The `model` path can be as deep as you want. E.g. `actions.change('user.phones[0].type', 'home')`
 
 ## `actions.reset(model)`
-Returns an action object that, when handled by a `modelReducer`, changes the value of the respective model to its initial value.
+Returns an action that, when handled by a `modelReducer`, changes the value of the respective model to its initial value.
 
 **Arguments**
 - `model` _(String)_: the model whose value will be reset to its initial value.
@@ -100,7 +100,7 @@ dispatch(actions.xor('user.numbers', 6));
 - This action is most useful for toggling a checkboxes whose values represent items in a model's array.
 
 ## `actions.push(model, item)`
-Dispatches a `change` action that "pushes" the `item` to the array represented by the `model`.
+Dispatches an `actions.change(...)` action that "pushes" the `item` to the array represented by the `model`.
 
 **Arguments**
 - `model` _(String)_: the array model where the `item` will be pushed.
@@ -111,7 +111,7 @@ Dispatches a `change` action that "pushes" the `item` to the array represented b
 
 
 ## `actions.toggle(model)`
-Dispatches a `change` action that sets the `model` to true if it is falsey, and false if it is truthy.
+Dispatches an `actions.change(...)` action that sets the `model` to true if it is falsey, and false if it is truthy.
 
 **Arguments**
 - `model` _(String)_: the model whose value will be toggled.
@@ -121,7 +121,7 @@ Dispatches a `change` action that sets the `model` to true if it is falsey, and 
 
 
 ## `actions.filter(model, iteratee)`
-Dispatches a `change` action that filters the array represented by the `model` through the `iteratee` function.
+Dispatches an `actions.change(...)` action that filters the array represented by the `model` through the `iteratee` function.
 
 If no `iteratee` is specified, the identity function is used by default.
 
