@@ -34,9 +34,10 @@ userReducer(initialState, actions.change('user.name', 'Billy'));
 ## `actions.reset(model)`
 Returns an action object that, when handled by a `modelReducer`, changes the value of the respective model to its initial value.
 
-**Arguments:**
+**Arguments**
 - `model` _(String)_: the model whose value will be reset to its initial value.
 
+**Example**
 ```js
 import {
   modelReducer,
@@ -55,3 +56,7 @@ let resetState = counterReducer(nextState,
   actions.reset('counter.count'));
 // => { count: 10 }
 ```
+
+**Tips**
+- This action will reset both the model value in the model reducer, _and_ the model field state in the form reducer (if it exists).
+- To reset just the field state (in the form reducer), use `actions.setInitial(model)`.
