@@ -63,7 +63,7 @@ const state = {
 }
 ```
 
-A value from this object can be retrieved with the path `'user.firstName'` and a value inside an array can be retrieved with `'user.phones[1]'`. You can retrieve deep values as well, e.g. `'user.phones[1].number'`.
+A value from this object is retrieved with the path `'user.firstName'` and a value inside an array is retrieved with `'user.phones[1]'`. You can retrieve deep values as well, e.g. `'user.phones[1].number'`.
 
 For example, to update the second phone number's type, you can `dispatch` a change to its model path:
 
