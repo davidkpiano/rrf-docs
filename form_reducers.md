@@ -1,6 +1,6 @@
 # Form Reducers
 
-A **form reducer** is a reducer that responds to any [field actions](/field_actions.html). When it receives a field action for a `model`, it updates the field state for that model. If applicable, it will also update the overall form state. Let's say your user model looks like this:
+A **form reducer** is a reducer that responds to any [field actions](field_actions.html). When it receives a field action for a `model`, it updates the field state for that model. If applicable, it will also update the overall form state. Let's say your user model looks like this:
 
 ```js
 let initialUser = {
