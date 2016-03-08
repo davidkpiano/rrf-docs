@@ -12,6 +12,7 @@ li.chapter:not(#a) > span {
 }
 
 ul.articles > li.chapter:not(#a) > a {
+  text-transform: none;
   color: rgba(255, 255, 255, 0.6);
 }
 
