@@ -1,4 +1,10 @@
 /* CSS for website */
+@import url(https://fonts.googleapis.com/css?family=Lato:400,700,400italic);
+
+html, body {
+  font-family: Lato, sans-serif !important;
+}
+
 .book-summary:not(#a) {
   background: #272e35;
 }
