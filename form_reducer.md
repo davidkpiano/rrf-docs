@@ -34,3 +34,66 @@ formState.fields.firstName;
 - If a field doesn't exist yet (because it wasn't initialized), you can either:
   - check that it exists; if not, return `initialFieldState` (which you can import)
   - or just `getField(someForm, 'model.string')` which does the above.
+
+## `getField(formState, model)`
+Returns the field from the `formState` if the field exists (has been initialized).
+
+If the field doesn't exist, the `initialFieldState` is returned.
+
+**Arguments**
+`formState` _(Object)_: the form state as returned by the form reducer.
+`model` _(String)_: the string model path to the field inside the form model, if it exists.
+
+**Example**
+```js
+// Assuming userForm is a form state, where the
+// 'user.foobar' field does not exist yet
+
+userForm.fields.foobar.valid;
+// => will throw error
+
+getField(userForm, 'foobar').pristine;
+// => true (uninitialized - no error)
+```
+
+## `initialFieldState`
+
+All initialized fields are set to this initial field state:
+
+```js
+const initialFieldState = {
+  blur: true,
+  dirty: false,
+  focus: false,
+  pending: false,
+  pristine: true,
+  submitted: false,
+  touched: false,
+  untouched: true,
+  valid: true,
+  validating: false,
+  viewValue: null,
+  validity: {},
+  errors: {},
+};
+```
+
+If an `initialState` (model state) is passed in as the second argument to `formReducer(model, initialState)`, then the `.initialValue` prop will be part of that initial field state.
+
+**Example**
+```js
+import { formReducer } from 'react-redux-form';
+
+const initialUserState = {
+  firstName: '',
+  lastName: ''
+};
+
+const userFormReducer = createFormReducer('user', initialUserState);
+
+// userForm.fields.firstName now contains:
+// { ...
+//   initialValue: '',
+//   ...
+// }
+```
