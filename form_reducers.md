@@ -1,6 +1,6 @@
 # Form Reducers
 
-In Redux Simple Form, a **form reducer** is a reducer that responds to any [field actions](todo) on the model (and its submodels) you specify when creating the form reducer. Let's say your user model looks like this:
+A **form reducer** is a reducer that responds to any [field actions](todo). When it receives a field action for a `model`, it updates the field state for that model. If applicable, it will also update the overall form state. Let's say your user model looks like this:
 
 ```js
 let initialUser = {
@@ -9,17 +9,17 @@ let initialUser = {
 };
 ```
 
-You can create a form reducer that responds only to field actions to models that modify the user like this:
+You can create a form reducer for the `'user'` model like this:
 
 ```js
-import { createFormReducer } from 'react-redux-form';
+import { formReducer } from 'react-redux-form';
 
-const userFormReducer = createFormReducer('user');
+const userFormReducer = formReducer('user', initialUser);
 ```
 
-Now when you dispatch a field action to the `'user'`, such as `focus('user.firstName')` or `setDirty('user.lastName')`, the `userFormReducer` will update the user form state.
+Now when you dispatch a field action to the `'user'`, such as `actions.focus('user.firstName')` or `actions.setDirty('user.lastName')`, the `userFormReducer` will update the user form state.
 
-**Important:** The state returned from the form reducer does not contain the model values. This is to keep a clean separation between view (the form) and model values. It also gives you complete control of your model, and allows you to represent it as a plain JavaScript object or array.
+**Important:** The state returned from the form reducer does not contain the model values, apart from the initial model value. This is to keep a clean separation between view (the form) and model values. It also gives you complete control of your model, and allows you to represent it as a plain JavaScript object or array.
 
 ### Form Reducers in Stores
 
@@ -28,15 +28,17 @@ Form reducer keys in the store can be named anything that makes sense in your ap
 ```js
 // store.js
 import { combineReducers, createStore } from 'redux';
-import { createFormReducer } from 'redux-simple-router';
+import { formReducer } from 'redux-simple-router';
 
-import userReducer from './reducers/user-reducer';
+import { userReducer, initialUserState } from './reducers/user-reducer';
 
 const store = createStore(combineReducers({
   user: userReducer,
-  userForm: createFormReducer('user'), // <= form reducer
+  userForm: formReducer('user', initialUserState), // form reducer
   // etc.
 }));
 
 export default store;
 ```
+
+**Important:** Just like the [model reducer](), the `model` of the `formReducer()` creator must point to the _model_ in the store, not the _form_. E.g. the model for `userForm` is `'user'`, not `'userForm'`.
