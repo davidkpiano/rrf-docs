@@ -1,4 +1,4 @@
-# Field Actions
+# Field Action Creators
 
 All model and field actions can be imported via `import { actions } from 'react-redux-form'`.
 
