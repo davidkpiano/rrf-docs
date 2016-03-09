@@ -87,24 +87,23 @@ export default store;
 
 ```js
 import React from 'react';
+import { connect } from 'react-redux';
 import { Field, Form, actions } from 'react-redux-form';
 
 class UserForm extends React.Component {
-  handleSubmit() {
-    let { user, dispatch } = this.props;
+  handleSubmit(user) {
+    let { dispatch } = this.props;
 
     // Do whatever you like in here.
-    // You can use redux simple form actions such as:
-    // actions.setPending('user', true);
-    // actions.setValidity('user.firstName', user.firstName.length > 0);
-    // actions.setSubmitted('user', true);
+    // You can use actions such as:
+    // dispatch(actions.submit('user', somePromise));
     // etc.
   }
   render() {
     let { user } = this.props;
 
     return (
-      <Form onSubmit={() => this.handleSubmit()}>
+      <Form onSubmit={(user) => this.handleSubmit(user)}>
         <Field model="user.firstName">
           <label>First name:</label>
           <input type="text" />
