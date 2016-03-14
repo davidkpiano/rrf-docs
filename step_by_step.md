@@ -103,7 +103,8 @@ class UserForm extends React.Component {
     let { user } = this.props;
 
     return (
-      <Form onSubmit={(user) => this.handleSubmit(user)}>
+      <Form model="user"
+        onSubmit={(user) => this.handleSubmit(user)}>
         <Field model="user.firstName">
           <label>First name:</label>
           <input type="text" />
