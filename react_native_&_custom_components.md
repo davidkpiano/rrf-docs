@@ -68,8 +68,36 @@ import { Field } from 'react-redux-form/lib/native';
 To see all the React Native prop mappings, [view the source code](https://github.com/davidkpiano/react-redux-form/blob/master/src/native/index.js).
 
 ## Custom Components
+It is straightforward to map React-Redux-Form's actions to event handlers on any kind of custom component. **This is the recommended way** to handle custom components, as issues may arise when components do not have a `.displayName` (this is how RRF recognizes components).
 
-For all other custom and 3rd-party components, such as [react-bootstrap](https://react-bootstrap.github.io/) and [material-ui](http://www.material-ui.com/#/), custom `<Field>` adapters can be created using `createFieldClass()` to map standard props to custom props.
+```js
+import React from 'react';
+import { connect } from 'react-redux';
+import { actions } from 'react-redux-form';
+
+// existing custom component
+import CustomInput from '../path/to/custom-input-component';
+
+// wrapper field
+class MyCustomInput extends React.Component {
+  render() {
+    let { model, dispatch } = this.props;
+    
+    return (
+      <CustomInput
+        onCustomChange={e => dispatch(actions.onChange(model, e))}
+      >
+    );
+  }
+}
+
+export default connect(s => s)(CustomField);
+
+// Usage:
+<MyCustomInput model="user.name" />
+```
+
+For all other custom and 3rd-party components that properly have a `displayName`, custom `<Field>` adapters can be created using `createFieldClass()` to map standard props to custom props.
 
 The `createFieldClass()` function accepts one argument: a component-prop `{ key: value }` mapping where the:
 
