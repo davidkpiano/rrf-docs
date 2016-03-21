@@ -142,3 +142,43 @@ function toAge(value) {
   <input type="number" />
 </Field>
 ```
+
+### `changeAction` property
+An action creator (function) that specifies which action the `<Field>` component should use when dispatching a change to the model. By default, this action is:
+
+- `actions.change(model, value)` for text input controls
+- `actions.toggle(model, value)` for checkboxes (single-value models)
+- `actions.xor(model, value)` for checkboxes (multi-value models)
+
+The action creator takes in two arguments:
+
+- `model` - the model that is being changed
+- `value` - the value that the model is being changed to
+
+**Example**
+
+To create a custom `<Field>` that submits the form on blur:
+
+```js
+import { actions } from 'react-redux-form';
+
+const submitPromise = ... // a promise
+
+function changeAndSubmit(model, value) {
+  return (dispatch) => {
+    dispatch(actions.change(model, value));
+    dispatch(actions.submit('user', submitPromise));
+  };
+}
+
+// Then, in your <Field> components...
+<Field model="user.name"
+  changeAction= { changeAndSubmit }
+  updateOn="blur">
+  <input type="email" />
+</Field>
+```
+
+**Tips**
+- Use `changeAction` to do any other custom actions whenever your value is to change.
+- Since `changeAction` expects an action creator and `redux-thunk` is used, you can asynchronously dispatch actions (like the example above).
