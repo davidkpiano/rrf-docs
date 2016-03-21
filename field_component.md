@@ -115,3 +115,30 @@ const length = (val) => val.length > 8;
   <input type="text">
 </Field>
 ```
+
+### `validateOn` property
+A string specifying when validation should occur. By default, validation happens on `"change"`. The `validateOn` property can have these values:
+- `"change"` (default) - validate on the `onChange` event handler
+- `"blur"` - validate on the `onBlur` event handler
+- `"focus"` - validate on the `onFocus` event handler
+
+**Tips**
+- Validation will always occur **on load**; i.e., when the component is mounted. This is to ensure an accurate validation state for a new form.
+- To avoid displaying error messages on load (as fields might be invalid), use the `.pristine` property of the field when conditionally showing error messages.
+
+### `parser` property
+A function that _parses_ the view value of the field before it is changed. It takes in two arguments:
+- `value` - the view value that represents the _next_ model value
+- `previous` (optional) - the current model value _before_ it is changed
+
+**Example**
+```js
+function toAge(value) {
+  return parseInt(value) || 0;
+}
+
+<Field model="user.age"
+  parser={ toAge }>
+  <input type="number" />
+</Field>
+```
