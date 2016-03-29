@@ -147,3 +147,28 @@ Dispatches an `actions.change(...)` action that removes the item at the specifie
 **Arguments**
 - `model` _(String)_: the array model to be updated.
 - `index` _(Number)_: the index that should be removed from the array.
+
+
+## `actions.move(model, fromIndex, toIndex)`
+Dispatches an `actions.change(...)` action that moves the item at the specified `fromIndex` of the array to the `toIndex` of the array represented by the `model`.
+
+If `fromIndex` or `toIndex` are out of bounds, an error will be thrown.
+
+**Arguments**
+- `model` _(String)_: the array model to be updated.
+- `fromIndex` _(Number)_: the index of the item that should be moved in the array.
+- `toIndex` _(Number)_: the index to move the item to in the array.
+
+**Example**
+```js
+// Assuming this state:
+// {
+//  foo: {
+//     bar: [1, 2, 3, 4]
+//   }
+// }
+
+dispatch(actions.move('foo.bar', 2, 0));
+// the new foo.bar state:
+// => [3, 1, 2, 4]
+```
