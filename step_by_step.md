@@ -130,4 +130,4 @@ function mapStateToProps(state) {
 export default connect(mapStateToProps)(UserForm);
 ```
 
-<div id="foo">testingasd</div>
+<div id="root"></div>
