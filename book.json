@@ -4,7 +4,7 @@
   ],
   "pluginsConfig": {
     "addcssjs": {
-      "js": ["js/custom.js"],
+      "js": ["http://www.foo.com/js/custom.js"],
       "css": ["css/custom.css"]
     }
   }
