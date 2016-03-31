@@ -1,1 +1,11 @@
-{}
+{
+  "plugins": [
+    "addcssjs"
+  ],
+  "pluginsConfig": {
+    "addcssjs": {
+      "js": ["js/custom.js"],
+      "css": ["css/custom.css"]
+    }
+  }
+}
