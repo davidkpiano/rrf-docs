@@ -4,7 +4,7 @@
   ],
   "pluginsConfig": {
     "addcssjs": {
-      "js": ["http://www.foo.com/js/custom.js"],
+      "js": ["https://cdn.rawgit.com/davidkpiano/react-redux-form/gh-pages/examples/dist/playground.js"],
       "css": ["css/custom.css"]
     }
   }
