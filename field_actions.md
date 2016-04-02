@@ -124,6 +124,19 @@ export default function submitUser(data) {
 **Tips**
 - Use the `setPending()` and `setSubmitted()` actions together to update the state of the field model during some async action.
 
+## `actions.setSubmitFailed(model)`
+Returns an action that, when handled by a `formReducer`, changes the `.submitFailed` state of the field model in the form to `true`. It simultaneously sets the `.pending` state to `false`, and the `.retouched` state to `false`.
+
+**Arguments**
+- `model` _(String)_: the model indicated as having failed a submit
+
+**Tips**
+
+- If the form has not been submitted yet, `.submitFailed = false`
+- If submitting (pending), `.submitFailed = false`
+- If submit failed, `.submitFailed = true`
+- If resubmitting, `.submitFailed = false` again.
+
 ## `actions.setInitial(model)`
 Returns an action that, when handled by a `formReducer`, changes the state of the field model in the form to its initial state.
 
