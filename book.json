@@ -1,11 +1,16 @@
 {
-  "plugins": [
-    "addcssjs"
-  ],
-  "pluginsConfig": {
-    "addcssjs": {
-      "js": ["https://rawgit.com/davidkpiano/react-redux-form/gh-pages/examples/dist/playground.js"],
-      "css": ["css/custom.css"]
+    "plugins": [
+        "addcssjs",
+        "codepen"
+    ],
+    "pluginsConfig": {
+        "addcssjs": {
+            "js": [
+                "https://rawgit.com/davidkpiano/react-redux-form/gh-pages/examples/dist/playground.js"
+            ],
+            "css": [
+                "css/custom.css"
+            ]
+        }
     }
-  }
 }
