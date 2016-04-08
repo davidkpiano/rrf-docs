@@ -1,5 +1,10 @@
 {
     "plugins": [
         "codepen"
-    ]
+    ],
+    "pluginsConfig": {
+      "codepen": {
+        "height" 800
+      }
+    }
 }
