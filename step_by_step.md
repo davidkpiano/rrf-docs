@@ -78,7 +78,7 @@ const initialUserState = {
 const store = createStore(combineReducers({
   user: modelReducer('user', initialUserState),
   userForm: formReducer('user', initialUserState)
-});
+}));
 
 export default store;
 ```
