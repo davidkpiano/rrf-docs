@@ -17,5 +17,5 @@
    * [Field Component](field_component.md)
    * [Form Component](form_component.md)
 * Recipes
-   * Sync Validation Recipe
+   * [Sync Validation Recipe](sync_validation_recipe.md)
 
