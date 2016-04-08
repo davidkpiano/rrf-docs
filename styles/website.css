@@ -27,3 +27,7 @@ ul.articles > li.chapter:not(#a) > a {
 ul.articles > li.chapter.active:not(#a) > a {
   color: white;
 }
+
+iframe {
+  height: 75vh;
+}
