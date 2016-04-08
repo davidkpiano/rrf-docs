@@ -16,4 +16,5 @@
    * [Form Reducer](form_reducer.md)
    * [Field Component](field_component.md)
    * [Form Component](form_component.md)
+* Recipes
 
