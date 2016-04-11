@@ -178,4 +178,35 @@ Dispatches an `actions.change(...)` action that loads (updates) the `model` with
 
 **Arguments**
 - `model` _(String)_: the model whose value will be changed
-- `value` _(any)_: the value the model will be loaded (updated) to
+- `value` _(any)_: the value to load (update) the model with
+
+**Tips**
+- This action is useful when you need to set an initial model value asynchronously.
+- If the initial model value is available at runtime, prefer setting it as part of the `initialState` of the `modelReducer` instead.
+
+## `actions.omit(model, props)`
+Dispatches an `actions.change(...)` action with the `model` value updated to not include any of the omitted `props`.
+
+**Arguments**
+- `model` _(String)_: the model to be modified with the omitted props
+- `props` _(String | String[])_: the props to omit from the model value
+
+**Example**
+```js
+// Assuming this state:
+// {
+//   test: {
+//     foo: 1,
+//     bar: 2, 
+//     baz: 3
+//   }
+// }
+
+dispatch(actions.omit('test', 'foo'));
+// the new test state: 
+// => { test: { bar: 2, baz: 3 } }
+
+dispatch(actions.omit('test', ['foo', 'baz']);
+// the new test state:
+// => { test: { bar: 2 } }
+```
