@@ -15,6 +15,7 @@ li.chapter:not(#a) > span {
   font-size: 80%;
   font-weight: bold;
   color: hsla(0,0%,100%,.4);
+  opacity: 1;
 }
 
 ul.articles > li.chapter:not(#a) > a {
