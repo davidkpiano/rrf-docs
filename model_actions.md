@@ -172,3 +172,10 @@ dispatch(actions.move('foo.bar', 2, 0));
 // the new foo.bar state:
 // => [3, 1, 2, 4]
 ```
+
+## `actions.load(model, value)`
+Dispatches an `actions.change(...)` action that loads (updates) the `model` with `value` silently. It does not trigger any effects of a `CHANGE` action in the form reducer.
+
+**Arguments**
+- `model` _(String)_: the model whose value will be changed
+- `value` _(any)_: the value the model will be loaded (updated) to
