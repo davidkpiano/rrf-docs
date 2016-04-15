@@ -99,10 +99,13 @@ export default connect(s => s)(CustomField);
 
 For all other custom and 3rd-party components that properly have a `displayName`, custom `<Field>` adapters can be created using `createFieldClass()` to map standard props to custom props.
 
-The `createFieldClass()` function accepts one argument: a component-prop `{ key: value }` mapping where the:
+### `createFieldClass(propsMap, [defaultProps])`
+The `createFieldClass()` function accepts two arguments: a component-prop `{ key: value }` mapping where the:
 
 - `key` is the component name, and the
 - `value` is a function that takes in the _existing_ prop mapping and returns a _new_ prop mapping.
+
+and an optional `defaultProps` object.
 
 For example, the React Native `<PickerIOS />` component has an `onValueChange` event handler prop and a `selectedValue` prop. We want to map these "custom" event handler props to behave like the standard props:
 
