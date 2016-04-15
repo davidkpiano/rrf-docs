@@ -65,7 +65,7 @@ export default createStore(combineReducers({
 ```
 
 ### `updateOn` property
-A string or function specifying when the component should dispatch a `change(...)` action. If a string, `updateOn` can be one of these values:
+A string specifying when the component should dispatch a `change(...)` action, with one of these values:
 
 - `"change"` - will dispatch in `onChange`
 - `"blur"` - will dispatch in `onBlur`
@@ -73,18 +73,8 @@ A string or function specifying when the component should dispatch a `change(...
 
 So, `<Field model="foo.bar" updateOn="blur">` will only dispatch the `change(...)` action on blur.
 
-If `updateOn` is a function, the function given will be called with the `change` action creator. The function given will be called in `onChange`. For example:
-
-```js
-import debounce from 'lodash/debounce';
-<Field model="test.bounce"
-  updateOn={(change) => debounce(change, 1000)} >
-  <input type="text" />
-</Field>
-```
-
 **Tips**
-- You can use `updateOn` to dispatch custom actions along with the `actions.change(...)` action.
+- Use `changeAction` if you want to dispatch custom actions along with the `actions.change(...)` action.
 
 ### `validators` property
 A map where the keys are validation keys, and the values are the corresponding functions that determine the validity of each key, given the model's value.
