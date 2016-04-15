@@ -123,4 +123,6 @@ export default connect(s => s)(MyForm);
 
 **Tips**
 - You can do anything in `onSubmit`; including firing off custom actions or handling (async) validation yourself.
+
+## `component={...}`
   
