@@ -11,7 +11,10 @@ When the change action is handled by a `formReducer`, the field model's `.dirty`
 **Arguments**
 - `model` _(String)_: the model whose value will be changed
 - `value` _(any)_: the value the model will be changed to
-- `options` _(object)_: the options to 
+- `options` _(object)_: an object containing options for the action creator:
+
+**Options**
+- `.silent` _(boolean)_: if `true`, the `CHANGE` action will not trigger change-related operations in the form reducer, such as setting `.pristine = false`. Default: `false`
 
 **Example**
 ```js
