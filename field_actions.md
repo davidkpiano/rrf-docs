@@ -3,7 +3,7 @@
 All model and field actions can be imported via `import { actions } from 'react-redux-form'`.
 
 ## `actions.focus(model)`
-Returns an action that, when handled by a `formReducer`, changes the `.focus` state of the field model in the form to `true`, as well as the corresponding `.blur` state to `false`.
+Returns an action that, when handled by a `formReducer`, changes the `.focus` state of the field model in the form to `true`.
 
 The "focus" state indicates that the field model is the currently focused field in the form.
 
@@ -28,12 +28,12 @@ const Newsletter = (props) => {
 ```
 
 ## `actions.blur(model)`
-Returns an action that, when handled by a `formReducer`, changes the `.blur` state of the field model in the form to `true`, as well as the corresponding `.focus` state to `false`. It also indicates that the field model has been `.touched`, and will set that state to `true` and the `untouched` state to `false`.
+Returns an action that, when handled by a `formReducer`, changes the `.focus` state to `false`. It also indicates that the field model has been `.touched`, and will set that state to `true`.
 
-The "blur" state indicates that the field model is not focused.
+A "blurred" field indicates that the field model control is not currently focused.
 
 **Arguments:**
-- `model` _(String)_: the model indicated as blurred
+- `model` _(String)_: the model indicated as blurred (not focused)
 
 ## `actions.setPristine(model)`
 Returns an action that, when handled by a `formReducer`, changes the `.pristine` state of the field model in the form to `true`, as well as the corresponding `.dirty` state to `false`.
