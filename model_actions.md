@@ -186,6 +186,7 @@ Dispatches an `actions.change(...)` action that loads (updates) the `model` with
 **Tips**
 - This action is useful when you need to set an initial model value asynchronously.
 - If the initial model value is available at runtime, prefer setting it as part of the `initialState` of the `modelReducer` instead.
+- This is equivalent to calling `actions.change(model, value, { silent: true })`.
 
 ## `actions.omit(model, props)`
 Dispatches an `actions.change(...)` action with the `model` value updated to not include any of the omitted `props`.
