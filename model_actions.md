@@ -2,7 +2,7 @@
 
 All model and field action creators can be imported via `import { actions } from 'react-redux-form'`. The action thunk creators require [redux-thunk-middleware](https://github.com/gaearon/redux-thunk) to work, as they use thunks to determine the current model state. 
 
-## `actions.change(model, value)`
+## `actions.change(model, value, [options])`
 
 Returns an action that, when handled by a `modelReducer`, changes the value of the `model` to the `value`.
 
@@ -11,7 +11,7 @@ When the change action is handled by a `formReducer`, the field model's `.dirty`
 **Arguments**
 - `model` _(String)_: the model whose value will be changed
 - `value` _(any)_: the value the model will be changed to
-
+- `options` _(object)_: the options to 
 
 **Example**
 ```js
