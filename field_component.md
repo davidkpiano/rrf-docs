@@ -165,6 +165,13 @@ import isAvailable from '../path/to/is-available';
 **Tips**
 - Async validators will always run on `blur`, unless you specify otherwise in the `asyncValidateOn="..."` prop.
 
+### `asyncValidateOn` property
+A string specifying when asynchronous validation should begin. By default, async validation happens on `"blur"`. The `asyncValidateOn` property can have these values:
+
+- `"blur"` - (default) - validate on the `onBlur` event handler
+- `"change"` - validate on the `onChange` event handler
+- `"focus"` - validate on the `onFocus` event handler
+
 ### `parser` property
 A function that _parses_ the view value of the field before it is changed. It takes in two arguments:
 - `value` - the view value that represents the _next_ model value
