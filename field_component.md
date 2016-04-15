@@ -138,6 +138,33 @@ A string specifying when validation should occur. By default, validation happens
 - Validation will always occur **on load**; i.e., when the component is mounted. This is to ensure an accurate validation state for a new form.
 - To avoid displaying error messages on load (as fields might be invalid), use the `.pristine` property of the field when conditionally showing error messages.
 
+### `asyncValidators` property
+A map where the keys are validation keys, and the values are the corresponding functions that (asynchronously) determine the validity of each key, given the model's value.
+
+Each async validator function is called with 2 arguments:
+- `value` - the model value
+- `done(validity)` - a callback function that should be called with the calculated validity
+
+For example, this field validates that a username is available via a promise:
+
+```js
+// function that returns a promise
+import isAvailable from '../path/to/is-available';
+
+<Field model="user.username"
+  asyncValidators={{
+    isAvailable: (value, done) => {
+      isAvailable(value)
+        .then((result) => done(result));
+    }
+  }}>
+  <input type="text" />
+</Field>
+```
+
+**Tips**
+- 
+
 ### `parser` property
 A function that _parses_ the view value of the field before it is changed. It takes in two arguments:
 - `value` - the view value that represents the _next_ model value
