@@ -64,6 +64,28 @@ export default createStore(combineReducers({
 </Field>
 ```
 
+It can also be a function that returns a string model. It is called with one argument:
+- `state` _(object)_: the entire state returned from `store.getState()`.
+
+```js
+// assuming store state similar to:
+// {
+//   users: [ ... ],
+//   currentUser: 3
+// }
+
+function getCurrentUserName(state) {
+  const currentUserIndex = state.currentUser;
+  
+  return `users.${currentUserIndex}.name`;
+}
+
+// in component's render() method
+<Field model={getCurrentUser}>
+  <input type="text" />
+</Field>
+```
+
 ### `updateOn` property
 A string specifying when the component should dispatch a `change(...)` action, with one of these values:
 
