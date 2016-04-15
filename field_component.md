@@ -163,7 +163,7 @@ import isAvailable from '../path/to/is-available';
 ```
 
 **Tips**
-- 
+- Async validators will always run on `blur`, unless you specify otherwise in the `asyncValidateOn="..."` prop.
 
 ### `parser` property
 A function that _parses_ the view value of the field before it is changed. It takes in two arguments:
