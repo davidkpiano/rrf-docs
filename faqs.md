@@ -2,7 +2,7 @@
 
 **How can I update the value of my component externally?**
 
-You can dispatch the `actions.change(model, value)` at any time to change the model value. For the component to show this changed value, keep in mind that components are _uncontrolled_ by default. To make it controlled, pass in the value to the `value={...}` prop:
+Dispatch the `actions.change(model, value)` to change the model value. For the component to show this changed value, keep in mind that components are _uncontrolled_ by default. To make it controlled, pass in the value to the `value={...}` prop:
 
 ```js
 // in render():
