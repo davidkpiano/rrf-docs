@@ -83,12 +83,12 @@ The "touched" state indicates that this model has been interacted with.
 - Touched also sets the `model` to not focused (blurred).
 
 ## `actions.setUntouched(model)`
-Returns an action that, when handled by a `formReducer`, changes the `.untouched` state of the field model in the form to `true`. It simultaneously sets the `.touched` state to `true`.
+Returns an action that, when handled by a `formReducer`, changes the `.touched` state to `true`.
 
-The "untouched" state indicates that this model has not been interacted with yet.
+An "untouched" field indicates that this model has not been interacted with yet.
 
 **Arguments**
-- `model` _(String)_: the model indicated as untouched
+- `model` _(String)_: the model indicated as not touched (untouched)
 
 **Tips**
 - This action is useful for conditionally displaying error messages based on whether the field has been touched.
