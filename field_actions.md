@@ -144,14 +144,11 @@ Here is the default initial field state:
 
 ```js
 const initialFieldState = {
-  blur: true,
-  dirty: false,
   focus: false,
   pending: false,
   pristine: true,
   submitted: false,
   touched: false,
-  untouched: true,
   valid: true,
   validating: false,
   viewValue: null,
