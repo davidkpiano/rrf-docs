@@ -1,13 +1,19 @@
 # Validation Action Creators
 
-## `actions.setValidity(model, validity)`
+## `actions.setValidity(model, validity, [options])`
 Returns an action that, when handled by a `formReducer`, changes the `.valid` state of the field model in the form to `true` or `false`, based on the `validity` (see below). It will also set the `.validity` state of the field model to the `validity`.
 
 It simultaneously sets the `.errors` on the field model to the inverse of the `validity`.
 
+
+
 **Arguments**
 - `model` _(String)_: the model whose validity will be set
 - `validity` _(Boolean | Object)_: a boolean value or an object indicating which validation keys of the field model are valid.
+- _`options`_ _(Object)_: an object containing options for the action creator:
+
+**Options**
+- `.errors` _(Boolean)_: if `true`, the validity will be set for `.errors` instead of `.validity` on the field. This is equivalent to `actions.setErrors()`.
 
 **Example**
 ```js
@@ -39,7 +45,7 @@ dispatch(actions.setValidity('user.password', {
 ```
 
 **Tips**
-- If you _really_ want to set error messages instead, use `actions.setErrors(model, errors)`.
+- If you _really_ want to set error messages instead, use `actions.setValidity(model, errors, { errors: true })`.
 - Since arrays are objects, the `validity` argument _can_ be an array. Only do this if your use case requires it.
 
 
