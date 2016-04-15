@@ -80,7 +80,7 @@ The "touched" state indicates that this model has been interacted with.
 
 **Tips**
 - Setting a `model` to touched also sets the entire form to touched.
-- Touched also sets the `model` to blurred.
+- Touched also sets the `model` to not focused (blurred).
 
 ## `actions.setUntouched(model)`
 Returns an action that, when handled by a `formReducer`, changes the `.untouched` state of the field model in the form to `true`. It simultaneously sets the `.touched` state to `true`.
