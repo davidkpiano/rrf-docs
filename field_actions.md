@@ -36,7 +36,7 @@ A "blurred" field indicates that the field model control is not currently focuse
 - `model` _(String)_: the model indicated as blurred (not focused)
 
 ## `actions.setPristine(model)`
-Returns an action that, when handled by a `formReducer`, changes the `.pristine` state of the field model in the form to `true`, as well as the corresponding `.dirty` state to `false`.
+Returns an action that, when handled by a `formReducer`, changes the `.pristine` state of the field model in the form to `true`.
 
 The "pristine" state indicates that the user has not interacted with this field model yet.
 
@@ -49,15 +49,15 @@ The "pristine" state indicates that the user has not interacted with this field 
   - otherwise, dirty.
 
 ## `actions.setDirty(model)`
-Returns an action that, when handled by a `formReducer`, changes the `.dirty` state of the field model in the form to `true`, as well as the corresponding `.pristine` state to `false`.
+Returns an action that, when handled by a `formReducer`, changes the `.pristine` state to `false`.
 
-The "dirty" state indicates that the model value has been changed.
+A "dirty" field indicates that the model value has been changed, and is no longer pristine.
 
 **Arguments**
-- `model` _(String)_: the model indicated as dirty
+- `model` _(String)_: the model indicated as not pristine (dirty)
 
 **Tips**
-- Whenever a field is set to dirty, the entire form is set to dirty.
+- Whenever a field is set to not pristine (dirty), the entire form is set to not pristine (dirty).
 
 ## `actions.setPending(model, [pending])`
 Returns an action that, when handled by a `formReducer`, changes the `.pending` state of the field model in the form to `true`. It simultaneously sets the `.submitted` state to `false`.
