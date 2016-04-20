@@ -64,7 +64,11 @@ Form reducers are _always_ optional. If you are not concerned with field states 
 
 ```js
 // ./store.js
-import { createStore, combineReducers } from 'redux';
+import {
+  createStore,
+  combineReducers,
+  applyMiddleware
+} from 'redux';
 import {
   modelReducer,
   formReducer
@@ -75,7 +79,7 @@ const initialUserState = {
   lastName: ''
 };
 
-const store = createStore(combineReducers({
+const store = applyMiddleware(thunk)(createStore)(combineReducers({
   user: modelReducer('user', initialUserState),
   userForm: formReducer('user', initialUserState)
 }));
