@@ -16,7 +16,7 @@
    * [Form Reducer](form_reducer.md)
    * [Field Component](field_component.md)
    * [Form Component](form_component.md)
-   * Errors Component
+   * [Errors Component](errors_component.md)
 * Recipes
    * [Sync Validation Recipe](sync_validation_recipe.md)
 
