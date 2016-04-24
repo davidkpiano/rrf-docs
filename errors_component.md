@@ -86,4 +86,19 @@ _(String | Function | Element)_ - The `wrapper` component, which is the componen
 
 **Examples**
 - `wrapper="ul"` will wrap all errors in an `<ul>`
-- `wrapper=
+- `wrapper={(props) => <div className="errors">{props.children}</div>}` will render the specified functional component, with all the props from `<Errors>` and some computed props:
+  - `modelValue` - the current value of the `model`
+  - `fieldValue` - the current field state of the `model`
+- `wrapper={CustomErrors}` will wrap all errors in a `<CustomErrors>` component, which will receive the same props as above.
+
+### `component` prop
+
+_(String | Function | Element)_ - The `component`, which is the component for each error message, can be configured using this prop. Default: `"span"`.
+
+**Examples**
+- `component="li"` will wrap all errors in a `<li>`
+- `component={(props) => <div className="error">{props.message}</div>}` will render the error message in the specified functional component, with these props:
+  - `modelValue` - the current value of the `model`
+  - `fieldValue` - the current field state of the `model`
+  - `children` - the error message (text).
+- `component={CustomError}` will wrap the error in a `<CustomError>` component, which will receive the same props as above.
