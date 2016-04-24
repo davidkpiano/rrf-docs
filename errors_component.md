@@ -37,3 +37,30 @@ There are many configurable props that will let you control:
 
 ### `model` prop
 
+_(String | Function)_ - the string representation of the model path to show the errors for that model. A tracking function may be provided, as well.
+
+### `messages` prop
+
+_(Object)_ - a plain object mapping where:
+- the keys are error keys (such as `"required"`)
+- the values are either strings or functions.
+
+If the message value is a function, it will be called with the model value.
+
+**Example**
+
+```js
+<Errors model="user.email"
+  messages={{
+    required: 'Please enter an email address.',
+    length: 'The email address is too long.',
+    invalid: (val) => `${val} is not a valid email address.',
+  }} />
+```
+
+**Tips**
+- The `messages` prop is a great place to keep custom error messages that can vary based on the location in the UI, instead of hardcoding error messages in validation fuctions.
+- If a message is _not_ provided for an error key, the message will default to the key value in the field `.errors` property.
+  - This means if you're using `setErrors` or the `errors` prop in `<Field>` to set error messages, they will automatically be shown in `<Errors />`.
+
+
