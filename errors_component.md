@@ -63,4 +63,17 @@ If the message value is a function, it will be called with the model value.
 - If a message is _not_ provided for an error key, the message will default to the key value in the field `.errors` property.
   - This means if you're using `setErrors` or the `errors` prop in `<Field>` to set error messages, they will automatically be shown in `<Errors />`.
 
+### `show` prop
 
+_(Any)_ - The `show` prop determines when error messages should be shown, based on the model's field state (determined by the form reducer).
+
+It can be a boolean, or a function, string, or object as a [Lodash iteratee](https://lodash.com/docs#iteratee). For example:
+
+- `show={true}` will always show the errors if they exist
+- `show={(field) => field.touched && !field.focus}` will show errors if the model's field is touched and not focused
+- `show={{ touched: true, focus: false }}` same as above
+- `show="touched"` will show errors if the model's field is touched
+
+**Tips**
+- For the greatest amount of control, use `show` as a function.
+- Use `show` as a boolean if you want to calculate when an error should be shown based on external factors, such as form state.
