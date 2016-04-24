@@ -157,7 +157,7 @@ dispatch(actions.setErrors('user.password', {
 
 **Tips**
 - If you aren't hard-coding error messages, use `actions.setValidity(model, validity)` instead. It's a cleaner pattern.
-- You can set `errors` to a boolean, object, array, string, etc. Remember: truthy values indicate errors.
+- You can set `errors` to a boolean, object, array, string, etc. Remember: truthy values indicate errors in `errors`.
 
 ## `actions.validateErrors(model, errorValidators)`
 Returns an action thunk that calculates the `errors` of the `model` based on the function/object `errorValidators`. Then, the thunk dispatches `actions.setErrors(model, errors)`.
