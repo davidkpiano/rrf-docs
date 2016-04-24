@@ -67,8 +67,10 @@ If the message value is a function, it will be called with the model value.
 
 _(Any)_ - The `show` prop determines when error messages should be shown, based on the model's field state (determined by the form reducer).
 
-It can be a boolean, or a function, string, or object as a [Lodash iteratee](https://lodash.com/docs#iteratee). For example:
+It can be a boolean, or a function, string, or object as a [Lodash iteratee](https://lodash.com/docs#iteratee). 
 
+
+**Examples**
 - `show={true}` will always show the errors if they exist
 - `show={(field) => field.touched && !field.focus}` will show errors if the model's field is touched and not focused
 - `show={{ touched: true, focus: false }}` same as above
@@ -78,4 +80,10 @@ It can be a boolean, or a function, string, or object as a [Lodash iteratee](htt
 - For the greatest amount of control, use `show` as a function.
 - Use `show` as a boolean if you want to calculate when an error should be shown based on external factors, such as form state.
 
+### `wrapper` prop
 
+_(String | Function | Element)_ - The `wrapper` component, which is the component that wraps all errors, can be configured using this prop. Default: `"div"`.
+
+**Examples**
+- `wrapper="ul"` will wrap all errors in an `<ul>`
+- `wrapper=
