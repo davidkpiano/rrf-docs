@@ -35,5 +35,5 @@ There are many configurable props that will let you control:
 
 ## Errors Component Props
 
-### `
+### `model` prop
 
