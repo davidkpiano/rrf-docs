@@ -39,12 +39,12 @@ const passwordsMatch = ({ password, confirmPassword }) => {
 
 # Properties
 
-## `model="..."`
+## `model` prop
 (Required) The string representing the model of the form in the store.
 
 Typically, the `<Field>` components nested inside `<Form>` would be _members_ of the form model; e.g. `user.email` and `user.password` are members of the `user` model.
 
-## `validators={{...}}`
+## `validators` prop
 An object representing the validators for the fields inside the form, where:
 
 - the **keys** are the field model names (e.g. `'email'` for `user.email`)
@@ -60,7 +60,7 @@ Validation will occur on _any field model change_ by default, and only the valid
 - Specifying validators on the form is usually sufficient - you don't need to put validators on the `<Field>` for most use cases.
 - If you need validators to run on submit, this is the place to put them.
 
-## `validateOn="..."`
+## `validateOn` prop
 A string that indicates when `validators` or `errors` (for error validators) should run.
 
 By default, validators will only run whenever a field changes, and
@@ -75,7 +75,7 @@ The possible values are:
 - Keep in mind, validation will always run initially, when the form is loaded.
 - If you want better performance, you can use `validateOn="submit"`, depending on your use-case.
 
-## `onSubmit={...}`
+## `onSubmit` prop
 The handler function called when the form is submitted. This works almost exactly like a normal `<form onSubmit={...}>` handler, with a few differences:
 
 - The submit event's default action is prevented by default, using `event.preventDefault()`.
@@ -124,5 +124,5 @@ export default connect(s => s)(MyForm);
 **Tips**
 - You can do anything in `onSubmit`; including firing off custom actions or handling (async) validation yourself.
 
-## `component={...}`
+## `component` prop
   
