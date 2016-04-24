@@ -98,7 +98,7 @@ So, `<Field model="foo.bar" updateOn="blur">` will only dispatch the `change(...
 **Tips**
 - Use `changeAction` if you want to dispatch custom actions along with the `actions.change(...)` action.
 
-### `validators` property
+### `validators` prop
 A map where the keys are validation keys, and the values are the corresponding functions that determine the validity of each key, given the model's value.
 
 For example, this field validates that a username exists and is longer than 4 characters:
@@ -128,7 +128,7 @@ const length = (val) => val.length > 8;
 </Field>
 ```
 
-### `validateOn` property
+### `validateOn` prop
 A string specifying when validation should occur. By default, validation happens on `"change"`. The `validateOn` property can have these values:
 - `"change"` (default) - validate on the `onChange` event handler
 - `"blur"` - validate on the `onBlur` event handler
@@ -138,7 +138,7 @@ A string specifying when validation should occur. By default, validation happens
 - Validation will always occur **on load**; i.e., when the component is mounted. This is to ensure an accurate validation state for a new form.
 - To avoid displaying error messages on load (as fields might be invalid), use the `.pristine` property of the field when conditionally showing error messages.
 
-### `asyncValidators` property
+### `asyncValidators` prop
 A map where the keys are validation keys, and the values are the corresponding functions that (asynchronously) determine the validity of each key, given the model's value.
 
 Each async validator function is called with 2 arguments:
@@ -165,14 +165,14 @@ import isAvailable from '../path/to/is-available';
 **Tips**
 - Async validators will always run on `blur`, unless you specify otherwise in the `asyncValidateOn="..."` prop.
 
-### `asyncValidateOn` property
+### `asyncValidateOn` prop
 A string specifying when asynchronous validation should begin. By default, async validation happens on `"blur"`. The `asyncValidateOn` property can have these values:
 
 - `"blur"` - (default) - validate on the `onBlur` event handler
 - `"change"` - validate on the `onChange` event handler
 - `"focus"` - validate on the `onFocus` event handler
 
-### `parser` property
+### `parser` prop
 A function that _parses_ the view value of the field before it is changed. It takes in two arguments:
 - `value` - the view value that represents the _next_ model value
 - `previous` (optional) - the current model value _before_ it is changed
@@ -189,7 +189,7 @@ function toAge(value) {
 </Field>
 ```
 
-### `changeAction` property
+### `changeAction` prop
 An action creator (function) that specifies which action the `<Field>` component should use when dispatching a change to the model. By default, this action is:
 
 - `actions.change(model, value)` for text input controls
