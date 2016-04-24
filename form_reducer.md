@@ -62,14 +62,16 @@ All initialized fields are set to this initial field state:
 
 ```js
 const initialFieldState = {
-  blur: true,
-  dirty: false,
+  blur: true, // will be deprecated
+  dirty: false, // will be deprecated
   focus: false,
   pending: false,
   pristine: true,
   submitted: false,
+  submitFailed: false,
+  retouched: false,
   touched: false,
-  untouched: true,
+  untouched: true, // will be deprecated
   valid: true,
   validating: false,
   viewValue: null,
