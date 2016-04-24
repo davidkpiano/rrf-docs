@@ -27,6 +27,12 @@ By default, `<Errors />` will display a `<div>` with each error message wrapped 
 </div>
 ```
 
+There are many configurable props that will let you control:
+- when error messages should be shown
+- custom error messages based on the model value
+- the wrapper component (default: `<div>`)
+- the message component (default: `<span>`)
+
 
 
 
