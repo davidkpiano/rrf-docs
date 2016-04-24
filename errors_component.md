@@ -33,7 +33,7 @@ There are many configurable props that will let you control:
 - the wrapper component (default: `<div>`)
 - the message component (default: `<span>`)
 
+## Errors Component Props
 
-
-
+### `
 
