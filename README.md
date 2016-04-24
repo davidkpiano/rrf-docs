@@ -30,6 +30,11 @@ React Redux Form:
 - allows for completely dynamic and deep forms
 - **keeps your model state intact**, which allows you to have full control of your model reducer
 
+Useful Components:
+- [`<Form>`](https://davidkpiano.gitbooks.io/react-redux-form/content/form_component.html)
+- [`<Field>`](https://davidkpiano.gitbooks.io/react-redux-form/content/field_component.html)
+- [`<Errors>`](https://davidkpiano.gitbooks.io/react-redux-form/content/errors_component.html)
+
 **Getting Started**
 
 1. Install the prerequisites:
