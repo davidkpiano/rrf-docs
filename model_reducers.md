@@ -44,6 +44,8 @@ const store = createStore(combineReducers({
 export default store;
 ```
 
+**Remember:** If your `modelReducer` is located at `foo.bar.baz.user` in your `store`, then its model must be `modelReducer('foo.bar.baz.user', ...)`
+
 ## Updating Models
 
 The model reducer uses the `model` path to know where which part of the state should be updated.
