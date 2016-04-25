@@ -74,3 +74,23 @@ However, this is a bit verbose. There's a simpler way of creating model getters 
 
 ## The `track()` Function
 
+You can create model getters using the `track()` function, which takes two arguments:
+
+- `model` _(String)_ - the model that represents the collection and property you want to track
+- `predicate` _(Function | Any)_ - a function or [Lodash iteratee](https://lodash.com/docs#iteratee) that finds the correct model to track.
+
+For example, I can track the pygmy goat name by ID like so:
+
+```js
+// With a predicate function
+<Field model={track('goats[].name', (goat) => goat.id === 303)}>
+  <input type="text" />
+</Field>
+
+// With a Lodash iteratee (shortand)
+<Field model={track('goats[].name', { id: 303 })}>
+  <input type="text" />
+</Field>
+```
+
+The `track()` function was released in React Redux Form v0.10: https://github.com/davidkpiano/react-redux-form/releases/tag/v0.10.0
