@@ -95,7 +95,7 @@ _(String | Function | Element)_ - The `wrapper` component, which is the componen
 
 _(String | Function | Element)_ - The `component`, which is the component for each error message, can be configured using this prop. Default: `"span"`.
 
-**Examples**
+**Examples** 
 - `component="li"` will wrap all errors in a `<li>`
 - `component={(props) => <div className="error">{props.message}</div>}` will render the error message in the specified functional component, with these props:
   - `modelValue` - the current value of the `model`
