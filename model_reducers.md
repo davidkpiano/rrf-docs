@@ -33,7 +33,7 @@ The _only requirement_\* is that your model reducer has the **same model as the 
 ```js
 // store.js
 import { combineReducers, createStore } from 'redux';
-import { modelReducer } from 'redux-simple-router';
+import { modelReducer } from 'react-redux-form';
 
 const store = createStore(combineReducers({
   user: modelReducer('user'),
