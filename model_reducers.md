@@ -131,7 +131,7 @@ myModeledReducer(newState, { type: 'GET_FULL_NAME' });
 // => { firstName: 'Johnnie', lastName: 'Walker', fullName: 'Johnnie Walker' }
 ```
 
-Want to know more about reducer enhancers (a.k.a. higher order reducers)? Check out [another example](http://rackt.org/redux/docs/recipes/ImplementingUndoHistory.html) of a higher-order reducer in the Redux ecosystem.
+Want to know more about reducer enhancers (a.k.a. higher order reducers)? Check out [another example](http://redux.js.org/docs/recipes/ImplementingUndoHistory.html) of a higher-order reducer in the Redux ecosystem.
 
 ## Custom Model Reducers
 
